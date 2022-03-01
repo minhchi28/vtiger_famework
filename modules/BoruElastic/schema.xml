@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<schema>
+	<tables>
+		<table>
+			<name>vtiger_boruelastic_moduleconfig</name>
+			<sql><![CDATA[CREATE TABLE `vtiger_boruelastic_moduleconfig` (
+  `tabid` bigint(19) NOT NULL,
+  `enabled` int(3) NOT NULL DEFAULT '1',
+  `fields` text,
+  `version` bigint(19) DEFAULT '0',
+  `max_fieldid` bigint(19) DEFAULT '0',
+  `last_reindex` datetime DEFAULT NULL,
+  PRIMARY KEY (`tabid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_boruelastic_serverconfig</name>
+			<sql><![CDATA[CREATE TABLE `vtiger_boruelastic_serverconfig` (
+  `host` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `port` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `prefix` varchar(100) NOT NULL DEFAULT 'vtiger',
+  PRIMARY KEY (`host`,`port`,`prefix`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_boruelastic_rel</name>
+			<sql><![CDATA[CREATE TABLE `vtiger_boruelastic_rel` (
+  `crmid` bigint(19) NOT NULL,
+  `synctime` datetime DEFAULT NULL,
+  PRIMARY KEY (`crmid`),
+  KEY `crmidsynctime` (`crmid`,`synctime`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+	</tables>
+</schema>
