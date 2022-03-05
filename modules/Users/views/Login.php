@@ -85,7 +85,6 @@ class Users_Login_View extends Vtiger_View_Controller {
 	function postProcess(Vtiger_Request $request) {
 		$moduleName = $request->getModule();
 		$viewer = $this->getViewer($request);
-		$viewer->view('Footer.tpl', $moduleName);
 	}
 
 	function getPageTitle(Vtiger_Request $request) {

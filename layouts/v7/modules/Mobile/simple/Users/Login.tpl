@@ -47,6 +47,4 @@
             </form>
         </md-content>
     </section>
-{/literal}	
-
-{include file="../Footer.tpl"}
+{/literal}
