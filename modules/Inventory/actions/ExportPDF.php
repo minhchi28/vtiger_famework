@@ -7,7 +7,11 @@
  * Portions created by vtiger are Copyright (C) vtiger.
  * All Rights Reserved.
  *************************************************************************************/
-
+require_once('include/utils/InventoryPDFUtils.php');
+/**
+ * Action Export PDF for Inventory Modules
+ * @author Khang Phan
+ */
 class Inventory_ExportPDF_Action extends Vtiger_Action_Controller {
 
 	public function checkPermission(Vtiger_Request $request) {
@@ -22,8 +26,13 @@ class Inventory_ExportPDF_Action extends Vtiger_Action_Controller {
 	public function process(Vtiger_Request $request) {
 		$moduleName = $request->getModule();
 		$recordId = $request->get('record');
+		$recordModel = Vtiger_Record_Model::getInstanceById($recordId);
 
-		$recordModel = Vtiger_Record_Model::getInstanceById($recordId, $moduleName);
-		$recordModel->getPDF();
+		// Export PDF
+		InventoryPDFUtils::exportPDF($recordModel);
+
+		$response = new Vtiger_Response();
+		$response->setResult(true);
+		$response->emit();
 	}
 }

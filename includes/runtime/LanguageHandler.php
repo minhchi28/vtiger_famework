@@ -247,3 +247,15 @@ function vJSTranslate($key, $moduleName = '') {
 	$args = func_get_args();
 	return call_user_func_array(array('Vtiger_Language_Handler', 'getJSTranslatedString'), $args);
 }
+
+function formatString($str, $args) {
+	if(count($args) == 1 && is_array($args[0])) {
+		return replaceKeys($str, $args[0]);
+	}
+		
+	return call_user_func_array('vsprintf', array($str, $args));
+}
+
+function replaceKeys($str, $keys) {
+	return str_replace(array_keys($keys), array_values($keys), $str);
+}
