@@ -186,4 +186,5 @@
     <br />
 
     <div style="font-size: 30px">{vtranslate('LBL_INVENTORY_PDF_KINDY_FAREWELL', $MODULE_NAME)}</div>
+    <div style="font-size: 30px">Hello Đô</div>
 {/strip}

@@ -14,7 +14,8 @@ class InventoryPDFUtils {
 	 * Contain the path to PDF template
 	 * @access protected
 	 */
-	protected static $contentTemplatePath = 'modules/Inventory/tpls/PDF.tpl';
+	protected static $contentTemplateSalesOrder = 'modules/Inventory/tpls/SalesOrderPDF.tpl';
+	protected static $contentTemplateInvoice = 'modules/Inventory/tpls/InvoicePDF.tpl';
 
     // Create new Object is not allow
     protected function __construct() {
@@ -58,25 +59,14 @@ class InventoryPDFUtils {
         
         // Process Record data
 		$entity = $record->getEntity();
-
+		
 		$recordDetails = getAssociatedProducts($moduleName, $entity);
 
 		// Added by Phuc on 2019.10.24 to get charges and taxes
 		$recordDetails[1]['final_details']['charges_and_its_taxes'] = $record->getCharges();
 		// Ended by Phuc
 
-		// Added by Phuc on 2020.01.20 to get extra summary
-		if ($record->getModuleName() == 'Invoice') {
-			$extSummary = $record->getSummaryReceivedDetails($record->getId());
-			$extSummary['received'] = formatPrice($extSummary['received']);
-			$extSummary['balance'] = formatPrice($extSummary['balance']);
-		}
-		else {
-			$extSummary = [];
-		}
-		// Ended by Phuc
-		
-		// Edit by Tung Bui on 2021.09.25
+		$extSummary = [];
 		
 		// get tax type
         $finalDetails = $recordDetails[1]['final_details'];
@@ -123,8 +113,9 @@ class InventoryPDFUtils {
 		$viewer->assign('COMPANY_CITY_INFO', $cityString);
 		$viewer->assign('ASSIGNED_USER_MODEL', $assignedUserModel);
         $viewer->assign('MODULE_NAME', $moduleName);
-        
-		$htmlContent = $viewer->fetch(self::$contentTemplatePath);
+
+        if ($moduleName == 'SalesOrder') 
+		$htmlContent = $viewer->fetch(self::$contentTemplateSalesOrder);
 		
 		return $htmlContent;
 	}
